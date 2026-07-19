@@ -3,78 +3,106 @@ export type MenuItem = {
   description?: string;
   price?: string;
   badge?: string;
+  category: MenuCategory;
 };
 
-export const mostOrdered: MenuItem[] = [
-  { name: "Taco Sampler", description: "A hand-picked assortment of our signature tacos." },
-  { name: "Taco Order (4)", description: "Four tacos, your choice of protein." },
+export const MENU_CATEGORIES = [
+  "Most Ordered",
+  "Extras & Sides",
+  "Dessert",
+  "Agua Fresca",
+  "Kids Meal",
+] as const;
+export type MenuCategory = (typeof MENU_CATEGORIES)[number];
+
+export const menu: MenuItem[] = [
+  // Most Ordered
+  { category: "Most Ordered", name: "Taco Sampler", description: "A hand-picked assortment of our signature tacos." },
+  { category: "Most Ordered", name: "Taco Order (4)", description: "Four tacos, your choice of protein." },
   {
+    category: "Most Ordered",
     name: "Taco Plate (3)",
     description:
       "Three tacos with rice and beans on the side. Served with cilantro, onion, radish, lime and salsa.",
   },
   {
+    category: "Most Ordered",
     name: "Mulitas (2)",
     description: "Two corn tortillas stacked with cheese and your choice of protein. Two per order.",
   },
   {
+    category: "Most Ordered",
     name: "Quesadillas",
     description: "12-inch flour tortilla filled with your choice of protein, cut into 3.",
   },
   {
+    category: "Most Ordered",
     name: "Burrito Supreme",
     description:
       "12-inch flour tortilla filled with beans, cheese, rice and your choice of meat. Loaded with onion, tomato, cilantro, jalapeño and sour cream.",
   },
   {
+    category: "Most Ordered",
     name: "Loaded Nachos",
     description:
       "Tostadas topped with our in-house nacho cheese, beans and your choice of meat, with cilantro, onion, tomato, jalapeño and sour cream.",
   },
   {
+    category: "Most Ordered",
     name: "Loaded Fries",
     description:
       "Waffle fries topped with your choice of meat and our in-house nacho cheese, loaded with cilantro, onion, tomato, jalapeño and sour cream.",
   },
   {
+    category: "Most Ordered",
     name: "Tortas",
     description:
       "Mexican torta bread filled with your choice of meat. Upcharge to make it loaded — cheese, beans, onion, tomato, cilantro, jalapeño and sour cream.",
   },
   {
+    category: "Most Ordered",
     name: "Grilled Cheese",
     description: "Texas toast filled with American cheese and your choice of protein.",
   },
-  { name: "Birria Ramen", description: "House birria broth over ramen — rich, spicy, unforgettable." },
-];
-
-export const extrasSides: MenuItem[] = [
-  { name: "Beans", description: "Delicious refried beans served with cheese on top.", price: "$4.00" },
   {
+    category: "Most Ordered",
+    name: "Birria Ramen",
+    description: "House birria broth over ramen — rich, spicy, unforgettable.",
+  },
+
+  // Extras & Sides
+  { category: "Extras & Sides", name: "Beans", description: "Delicious refried beans served with cheese on top.", price: "$4.00" },
+  {
+    category: "Extras & Sides",
     name: "Guacamole (1.5 oz cup)",
     description: "Avocado, lime, red onion, cilantro and tomato.",
     price: "$1.00",
     badge: "100% liked (9)",
   },
-  { name: "Corn Tortillas (2)", description: "Two warm corn tortillas.", price: "$2.00" },
+  { category: "Extras & Sides", name: "Corn Tortillas (2)", description: "Two warm corn tortillas.", price: "$2.00" },
   {
+    category: "Extras & Sides",
     name: "8 oz Consomé",
     description: "Rich 8 oz birria consomé. Condiments sold separately.",
     price: "$4.00",
     badge: "81% liked (11)",
   },
   {
+    category: "Extras & Sides",
     name: "Condiments",
     description: "Extra side of lime, salsa, onion, cilantro and radishes.",
     price: "$1.00",
     badge: "#2 Most Liked · 95% (23)",
   },
-];
 
-export const categories = [
-  { name: "Dessert", note: "Sweet finishers, rotating selection." },
-  { name: "Agua Fresca", note: "Refreshing agua fresca in different flavors." },
-  { name: "Kids Meal", note: "Kid-sized portions of the classics." },
+  // Dessert
+  { category: "Dessert", name: "Dessert", description: "Sweet finishers — rotating selection, ask what's fresh." },
+
+  // Agua Fresca
+  { category: "Agua Fresca", name: "Agua Fresca", description: "Refreshing agua fresca in different flavors." },
+
+  // Kids Meal
+  { category: "Kids Meal", name: "Kids Meal", description: "Kid-sized portions of the classics." },
 ];
 
 export type Review = {
