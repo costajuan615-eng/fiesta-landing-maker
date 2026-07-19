@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Phone, MapPin, Clock, Star, Flame, Utensils, DollarSign, Truck } from "lucide-react";
 import logo from "@/assets/labomba-logo.png";
 import hero from "@/assets/labomba-hero.jpg";
-import { BUSINESS, mostOrdered, extrasSides, categories, reviews } from "./data";
+import { BUSINESS, reviews } from "./data";
+import Menu from "./Menu";
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
