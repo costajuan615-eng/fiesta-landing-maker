@@ -303,8 +303,7 @@ export default function LaBomba() {
       <Hero />
       <InfoBar />
       <About />
-      <MostOrdered />
-      <ExtrasSides />
+      <Menu />
       <Reviews />
       <Visit />
       <Footer />
