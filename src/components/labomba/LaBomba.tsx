@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Phone, MapPin, Clock, Star, Flame, Utensils, DollarSign, Truck } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Phone, MapPin, Clock, Star, Flame, Utensils, DollarSign, Truck, UtensilsCrossed } from "lucide-react";
 import logo from "@/assets/labomba-logo.png";
 import hero from "@/assets/labomba-hero.jpg";
 import { BUSINESS, reviews } from "./data";
@@ -81,6 +82,12 @@ function Hero() {
           >
             <Flame className="h-4 w-4" /> Order on DoorDash
           </a>
+          <Link
+            to="/menu"
+            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition hover:bg-card"
+          >
+            <UtensilsCrossed className="h-4 w-4" /> Full Menu & Gallery
+          </Link>
           <a
             href={BUSINESS.phoneHref}
             className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/60 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur transition hover:bg-card"
@@ -284,7 +291,7 @@ function Footer() {
           {BUSINESS.name} · Former food truck, now brick & mortar · El Paso, TX
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-          <a href="#menu" className="hover:text-foreground">Menu</a>
+          <Link to="/menu" className="hover:text-foreground">Full Menu & Gallery</Link>
           <a href="#reviews" className="hover:text-foreground">Reviews</a>
           <a href="#visit" className="hover:text-foreground">Visit</a>
           <a href={BUSINESS.phoneHref} className="hover:text-foreground">{BUSINESS.phone}</a>
