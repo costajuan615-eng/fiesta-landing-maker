@@ -96,10 +96,32 @@ export const menu: MenuItem[] = [
   },
 
   // Dessert
-  { category: "Dessert", name: "Dessert", description: "Sweet finishers — rotating selection, ask what's fresh." },
+  { category: "Dessert", name: "Empanadas (2)", description: "Two crispy empanadas — sweet or savory filling.", price: "$2.50" },
+  { category: "Dessert", name: "Tres Leches Cake", description: "Classic sponge cake soaked in three milks.", price: "$6.00" },
+  { category: "Dessert", name: "Flan", description: "Creamy caramel custard with a smooth finish.", price: "$6.00" },
 
   // Agua Fresca
-  { category: "Agua Fresca", name: "Agua Fresca", description: "Refreshing agua fresca in different flavors." },
+  {
+    category: "Agua Fresca",
+    name: "Melon Water (Agua De Melon) (16 oz)",
+    description: "16 oz refreshing melon agua fresca pouch.",
+  },
+  {
+    category: "Agua Fresca",
+    name: "Strawberry Lemonade (16 oz)",
+    description: "Refreshing strawberry lemonade juice pouch, 16 oz.",
+  },
+  {
+    category: "Agua Fresca",
+    name: "Pistachio Water (Agua De Pistachio) (16 oz)",
+    description: "Delicious 16 oz pistachio agua fresca pouch.",
+  },
+  {
+    category: "Agua Fresca",
+    name: "Jamaica Water (Agua De Jamaica) (16 oz)",
+    description: "16 oz hibiscus agua de jamaica pouch.",
+  },
+
 
   // Kids Meal
   { category: "Kids Meal", name: "Kids Meal", description: "Kid-sized portions of the classics." },
