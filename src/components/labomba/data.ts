@@ -71,6 +71,14 @@ export const menu: MenuItem[] = [
   },
 
   // Extras & Sides
+  {
+    category: "Extras & Sides",
+    name: "Rice and Beans",
+    description: "Delicious rice and beans plate.",
+    price: "$4.00",
+    badge: "#3 Most Liked · 93% (15)",
+  },
+  { category: "Extras & Sides", name: "Rice", description: "Delicious Mexican red rice.", price: "$4.00" },
   { category: "Extras & Sides", name: "Beans", description: "Delicious refried beans served with cheese on top.", price: "$4.00" },
   {
     category: "Extras & Sides",
