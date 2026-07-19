@@ -1,24 +1,57 @@
 import { createFileRoute } from "@tanstack/react-router";
+import LaBomba from "@/components/labomba/LaBomba";
+import { BUSINESS } from "@/components/labomba/data";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "La Bomba LLC — Birria, Asada, Pastor & Carnitas · El Paso, TX" },
+      {
+        name: "description",
+        content:
+          "La Bomba LLC — former food truck, now brick and mortar in El Paso, TX. Bomb birria, asada, pastor, carnitas, loaded fries, quesatacos & more. 4.8★ on DoorDash.",
+      },
+      { property: "og:title", content: "La Bomba LLC — El Paso, TX" },
+      {
+        property: "og:description",
+        content:
+          "Bomb birria, asada, pastor & carnitas in El Paso, TX. Open 11:00 AM – 9:55 PM. 4.8★ (500+ ratings).",
+      },
+      { property: "og:type", content: "restaurant" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: BUSINESS.name,
+          description: BUSINESS.description,
+          servesCuisine: BUSINESS.cuisine,
+          priceRange: BUSINESS.priceRange,
+          telephone: BUSINESS.phone,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "1793 N Zaragoza Rd",
+            addressLocality: "El Paso",
+            addressRegion: "TX",
+            postalCode: "79936",
+            addressCountry: "US",
+          },
+          openingHours: "Mo-Su 11:00-21:55",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: BUSINESS.rating,
+            ratingCount: 500,
+          },
+        }),
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <LaBomba />;
 }
