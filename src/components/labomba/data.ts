@@ -1,8 +1,36 @@
+import tacoSampler from "@/assets/menu/taco-sampler.jpg";
+import tacoOrder from "@/assets/menu/taco-order.jpg";
+import tacoPlate from "@/assets/menu/taco-plate.jpg";
+import mulitas from "@/assets/menu/mulitas.jpg";
+import quesadillas from "@/assets/menu/quesadillas.jpg";
+import burritoSupreme from "@/assets/menu/burrito-supreme.jpg";
+import loadedNachos from "@/assets/menu/loaded-nachos.jpg";
+import loadedFries from "@/assets/menu/loaded-fries.jpg";
+import tortas from "@/assets/menu/tortas.jpg";
+import grilledCheese from "@/assets/menu/grilled-cheese.jpg";
+import birriaRamen from "@/assets/menu/birria-ramen.jpg";
+import riceAndBeans from "@/assets/menu/rice-and-beans.jpg";
+import rice from "@/assets/menu/rice.jpg";
+import beans from "@/assets/menu/beans.jpg";
+import guacamole from "@/assets/menu/guacamole.jpg";
+import cornTortillas from "@/assets/menu/corn-tortillas.jpg";
+import consome from "@/assets/menu/consome.jpg";
+import condiments from "@/assets/menu/condiments.jpg";
+import empanadas from "@/assets/menu/empanadas.jpg";
+import tresLeches from "@/assets/menu/tres-leches.jpg";
+import flan from "@/assets/menu/flan.jpg";
+import aguaMelon from "@/assets/menu/agua-melon.jpg";
+import aguaStrawberry from "@/assets/menu/agua-strawberry.jpg";
+import aguaPistachio from "@/assets/menu/agua-pistachio.jpg";
+import aguaJamaica from "@/assets/menu/agua-jamaica.jpg";
+import kidsMeal from "@/assets/menu/kids-meal.jpg";
+
 export type MenuItem = {
   name: string;
   description?: string;
   price?: string;
   badge?: string;
+  image?: string;
   category: MenuCategory;
 };
 
