@@ -149,11 +149,21 @@ export default function Menu() {
                     </span>
                   </div>
                 )}
+                <button
+                  onClick={() => setCustomizing(item)}
+                  className="btn-blaze relative mt-4 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider hover:btn-blaze-hover"
+                >
+                  <Plus className="h-3.5 w-3.5" /> Add to order
+                </button>
               </div>
             </article>
           ))}
         </div>
       )}
+      {customizing && (
+        <ItemCustomizer item={customizing} onClose={() => setCustomizing(null)} />
+      )}
     </section>
   );
 }
+
