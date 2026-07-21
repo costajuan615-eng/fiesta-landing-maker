@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { Search, Flame, X } from "lucide-react";
-import { menu, MENU_CATEGORIES, type MenuCategory } from "./data";
+import { Search, Flame, X, Plus } from "lucide-react";
+import { menu, MENU_CATEGORIES, type MenuCategory, type MenuItem } from "./data";
+import ItemCustomizer from "./ItemCustomizer";
+
 
 type Tab = "All" | MenuCategory;
 const TABS: Tab[] = ["All", ...MENU_CATEGORIES];
