@@ -45,57 +45,66 @@ export type MenuCategory = (typeof MENU_CATEGORIES)[number];
 
 export const menu: MenuItem[] = [
   // Most Ordered
-  { category: "Most Ordered", name: "Taco Sampler", description: "A hand-picked assortment of our signature tacos." },
-  { category: "Most Ordered", name: "Taco Order (4)", description: "Four tacos, your choice of protein." },
+  { category: "Most Ordered", name: "Taco Sampler", description: "A hand-picked assortment of our signature tacos.", image: tacoSampler },
+  { category: "Most Ordered", name: "Taco Order (4)", description: "Four tacos, your choice of protein.", image: tacoOrder },
   {
     category: "Most Ordered",
     name: "Taco Plate (3)",
     description:
       "Three tacos with rice and beans on the side. Served with cilantro, onion, radish, lime and salsa.",
+    image: tacoPlate,
   },
   {
     category: "Most Ordered",
     name: "Mulitas (2)",
     description: "Two corn tortillas stacked with cheese and your choice of protein. Two per order.",
+    image: mulitas,
   },
   {
     category: "Most Ordered",
     name: "Quesadillas",
     description: "12-inch flour tortilla filled with your choice of protein, cut into 3.",
+    image: quesadillas,
   },
   {
     category: "Most Ordered",
     name: "Burrito Supreme",
     description:
       "12-inch flour tortilla filled with beans, cheese, rice and your choice of meat. Loaded with onion, tomato, cilantro, jalapeño and sour cream.",
+    image: burritoSupreme,
   },
   {
     category: "Most Ordered",
     name: "Loaded Nachos",
     description:
       "Tostadas topped with our in-house nacho cheese, beans and your choice of meat, with cilantro, onion, tomato, jalapeño and sour cream.",
+    image: loadedNachos,
   },
   {
     category: "Most Ordered",
     name: "Loaded Fries",
     description:
       "Waffle fries topped with your choice of meat and our in-house nacho cheese, loaded with cilantro, onion, tomato, jalapeño and sour cream.",
+    image: loadedFries,
   },
   {
     category: "Most Ordered",
     name: "Tortas",
     description:
       "Mexican torta bread filled with your choice of meat. Upcharge to make it loaded — cheese, beans, onion, tomato, cilantro, jalapeño and sour cream.",
+    image: tortas,
   },
   {
     category: "Most Ordered",
     name: "Grilled Cheese",
     description: "Texas toast filled with American cheese and your choice of protein.",
+    image: grilledCheese,
   },
   {
     category: "Most Ordered",
     name: "Birria Ramen",
     description: "House birria broth over ramen — rich, spicy, unforgettable.",
+    image: birriaRamen,
   },
 
   // Extras & Sides
@@ -105,23 +114,26 @@ export const menu: MenuItem[] = [
     description: "Delicious rice and beans plate.",
     price: "$4.00",
     badge: "#3 Most Liked · 93% (15)",
+    image: riceAndBeans,
   },
-  { category: "Extras & Sides", name: "Rice", description: "Delicious Mexican red rice.", price: "$4.00" },
-  { category: "Extras & Sides", name: "Beans", description: "Delicious refried beans served with cheese on top.", price: "$4.00" },
+  { category: "Extras & Sides", name: "Rice", description: "Delicious Mexican red rice.", price: "$4.00", image: rice },
+  { category: "Extras & Sides", name: "Beans", description: "Delicious refried beans served with cheese on top.", price: "$4.00", image: beans },
   {
     category: "Extras & Sides",
     name: "Guacamole (1.5 oz cup)",
     description: "Avocado, lime, red onion, cilantro and tomato.",
     price: "$1.00",
     badge: "100% liked (9)",
+    image: guacamole,
   },
-  { category: "Extras & Sides", name: "Corn Tortillas (2)", description: "Two warm corn tortillas.", price: "$2.00" },
+  { category: "Extras & Sides", name: "Corn Tortillas (2)", description: "Two warm corn tortillas.", price: "$2.00", image: cornTortillas },
   {
     category: "Extras & Sides",
     name: "8 oz Consomé",
     description: "Rich 8 oz birria consomé. Condiments sold separately.",
     price: "$4.00",
     badge: "81% liked (11)",
+    image: consome,
   },
   {
     category: "Extras & Sides",
@@ -129,38 +141,43 @@ export const menu: MenuItem[] = [
     description: "Extra side of lime, salsa, onion, cilantro and radishes.",
     price: "$1.00",
     badge: "#2 Most Liked · 95% (23)",
+    image: condiments,
   },
 
   // Dessert
-  { category: "Dessert", name: "Empanadas (2)", description: "Two crispy empanadas — sweet or savory filling.", price: "$2.50" },
-  { category: "Dessert", name: "Tres Leches Cake", description: "Classic sponge cake soaked in three milks.", price: "$6.00" },
-  { category: "Dessert", name: "Flan", description: "Creamy caramel custard with a smooth finish.", price: "$6.00" },
+  { category: "Dessert", name: "Empanadas (2)", description: "Two crispy empanadas — sweet or savory filling.", price: "$2.50", image: empanadas },
+  { category: "Dessert", name: "Tres Leches Cake", description: "Classic sponge cake soaked in three milks.", price: "$6.00", image: tresLeches },
+  { category: "Dessert", name: "Flan", description: "Creamy caramel custard with a smooth finish.", price: "$6.00", image: flan },
 
   // Agua Fresca
   {
     category: "Agua Fresca",
     name: "Melon Water (Agua De Melon) (16 oz)",
     description: "16 oz refreshing melon agua fresca pouch.",
+    image: aguaMelon,
   },
   {
     category: "Agua Fresca",
     name: "Strawberry Lemonade (16 oz)",
     description: "Refreshing strawberry lemonade juice pouch, 16 oz.",
+    image: aguaStrawberry,
   },
   {
     category: "Agua Fresca",
     name: "Pistachio Water (Agua De Pistachio) (16 oz)",
     description: "Delicious 16 oz pistachio agua fresca pouch.",
+    image: aguaPistachio,
   },
   {
     category: "Agua Fresca",
     name: "Jamaica Water (Agua De Jamaica) (16 oz)",
     description: "16 oz hibiscus agua de jamaica pouch.",
+    image: aguaJamaica,
   },
 
 
   // Kids Meal
-  { category: "Kids Meal", name: "Kids Meal", description: "Kid-sized portions of the classics." },
+  { category: "Kids Meal", name: "Kids Meal", description: "Kid-sized portions of the classics.", image: kidsMeal },
 ];
 
 export type Review = {
