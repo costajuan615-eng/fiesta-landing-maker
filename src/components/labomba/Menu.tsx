@@ -97,36 +97,55 @@ export default function Menu() {
           {filtered.map((item) => (
             <article
               key={`${item.category}-${item.name}`}
-              className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-6 transition hover:-translate-y-0.5 hover:border-[color:var(--ember)]/60"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card transition hover:-translate-y-0.5 hover:border-[color:var(--ember)]/60"
             >
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[color:var(--ember)]/10 blur-2xl transition group-hover:bg-[color:var(--ember)]/25" />
-              <div className="relative flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--accent)]">
-                    {item.category}
-                  </div>
-                  <h3 className="mt-1 text-2xl font-normal tracking-wide text-foreground">
-                    {item.name}
-                  </h3>
+              {item.image && (
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    loading="lazy"
+                    width={1024}
+                    height={768}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  {item.price && (
+                    <div className="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-sm font-bold text-white backdrop-blur-sm">
+                      {item.price}
+                    </div>
+                  )}
                 </div>
-                {item.price && (
-                  <div className="shrink-0 text-xl font-normal tracking-wide text-gradient-flame">
-                    {item.price}
+              )}
+              <div className="relative flex flex-1 flex-col p-6">
+                <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[color:var(--ember)]/10 blur-2xl transition group-hover:bg-[color:var(--ember)]/25" />
+                <div className="relative flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--accent)]">
+                      {item.category}
+                    </div>
+                    <h3 className="mt-1 text-2xl font-normal tracking-wide text-foreground">
+                      {item.name}
+                    </h3>
+                  </div>
+                  {item.price && !item.image && (
+                    <div className="shrink-0 text-xl font-normal tracking-wide text-gradient-flame">
+                      {item.price}
+                    </div>
+                  )}
+                </div>
+                {item.description && (
+                  <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                )}
+                {item.badge && (
+                  <div className="relative mt-3">
+                    <span className="rounded-full bg-[color:var(--accent)]/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[color:var(--accent)]">
+                      {item.badge}
+                    </span>
                   </div>
                 )}
               </div>
-              {item.description && (
-                <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
-              )}
-              {item.badge && (
-                <div className="relative mt-3">
-                  <span className="rounded-full bg-[color:var(--accent)]/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-[color:var(--accent)]">
-                    {item.badge}
-                  </span>
-                </div>
-              )}
             </article>
           ))}
         </div>
