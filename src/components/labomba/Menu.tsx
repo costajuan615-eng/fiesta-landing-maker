@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { Search, Flame, X } from "lucide-react";
-import { menu, MENU_CATEGORIES, type MenuCategory } from "./data";
+import { Search, Flame, X, Plus } from "lucide-react";
+import { menu, MENU_CATEGORIES, type MenuCategory, type MenuItem } from "./data";
+import ItemCustomizer from "./ItemCustomizer";
+
 
 type Tab = "All" | MenuCategory;
 const TABS: Tab[] = ["All", ...MENU_CATEGORIES];
@@ -8,6 +10,8 @@ const TABS: Tab[] = ["All", ...MENU_CATEGORIES];
 export default function Menu() {
   const [tab, setTab] = useState<Tab>("All");
   const [query, setQuery] = useState("");
+  const [customizing, setCustomizing] = useState<MenuItem | null>(null);
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -145,11 +149,21 @@ export default function Menu() {
                     </span>
                   </div>
                 )}
+                <button
+                  onClick={() => setCustomizing(item)}
+                  className="btn-blaze relative mt-4 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider hover:btn-blaze-hover"
+                >
+                  <Plus className="h-3.5 w-3.5" /> Add to order
+                </button>
               </div>
             </article>
           ))}
         </div>
       )}
+      {customizing && (
+        <ItemCustomizer item={customizing} onClose={() => setCustomizing(null)} />
+      )}
     </section>
   );
 }
+

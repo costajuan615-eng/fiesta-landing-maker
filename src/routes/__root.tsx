@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { OrderProvider } from "@/lib/order-context";
+import { CartDrawer, CartFab } from "@/components/labomba/CartDrawer";
+
 
 function NotFoundComponent() {
   return (
@@ -127,8 +130,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <OrderProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <CartFab />
+        <CartDrawer />
+      </OrderProvider>
     </QueryClientProvider>
   );
 }
+
