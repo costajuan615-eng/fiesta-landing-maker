@@ -10,6 +10,8 @@ const TABS: Tab[] = ["All", ...MENU_CATEGORIES];
 export default function Menu() {
   const [tab, setTab] = useState<Tab>("All");
   const [query, setQuery] = useState("");
+  const [customizing, setCustomizing] = useState<MenuItem | null>(null);
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
