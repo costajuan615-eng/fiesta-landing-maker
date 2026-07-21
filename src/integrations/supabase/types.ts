@@ -14,7 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_items: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          menu_item_id: string
+          name: string
+          note: string | null
+          order_id: string
+          parent_item_id: string | null
+          quantity: number
+          unit_price_cents: number | null
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          menu_item_id: string
+          name: string
+          note?: string | null
+          order_id: string
+          parent_item_id?: string | null
+          quantity?: number
+          unit_price_cents?: number | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          menu_item_id?: string
+          name?: string
+          note?: string | null
+          order_id?: string
+          parent_item_id?: string | null
+          quantity?: number
+          unit_price_cents?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_parent_item_id_fkey"
+            columns: ["parent_item_id"]
+            isOneToOne: false
+            referencedRelation: "order_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_name: string
+          delivery_address: string | null
+          email: string | null
+          id: string
+          item_count: number
+          notes: string | null
+          order_code: string
+          order_type: string
+          phone: string
+          secret_token: string
+          status: string
+          subtotal_cents: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_name: string
+          delivery_address?: string | null
+          email?: string | null
+          id?: string
+          item_count?: number
+          notes?: string | null
+          order_code: string
+          order_type: string
+          phone: string
+          secret_token?: string
+          status?: string
+          subtotal_cents?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string
+          delivery_address?: string | null
+          email?: string | null
+          id?: string
+          item_count?: number
+          notes?: string | null
+          order_code?: string
+          order_type?: string
+          phone?: string
+          secret_token?: string
+          status?: string
+          subtotal_cents?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
