@@ -49,60 +49,71 @@ export type MenuCategory = (typeof MENU_CATEGORIES)[number];
 export const menu: MenuItem[] = [
   // Most Ordered
   { category: "Most Ordered", name: "Taco Sampler", description: "A hand-picked assortment of our signature tacos.", image: tacoSampler },
-  { category: "Most Ordered", name: "Taco Order (4)", description: "Four tacos, your choice of protein.", image: tacoOrder },
-  {
-    category: "Most Ordered",
-    name: "Taco Plate (3)",
-    description:
-      "Three tacos with rice and beans on the side. Served with cilantro, onion, radish, lime and salsa.",
-    image: tacoPlate,
-  },
-  {
-    category: "Most Ordered",
-    name: "Mulitas (2)",
-    description: "Two corn tortillas stacked with cheese and your choice of protein. Two per order.",
-    image: mulitas,
-  },
-  {
-    category: "Most Ordered",
-    name: "Quesadillas",
-    description: "12-inch flour tortilla filled with your choice of protein, cut into 3.",
-    image: quesadillas,
-  },
-  {
-    category: "Most Ordered",
-    name: "Burrito Supreme",
-    description:
-      "12-inch flour tortilla filled with beans, cheese, rice and your choice of meat. Loaded with onion, tomato, cilantro, jalapeño and sour cream.",
-    image: burritoSupreme,
-  },
-  {
-    category: "Most Ordered",
-    name: "Loaded Nachos",
-    description:
-      "Tostadas topped with our in-house nacho cheese, beans and your choice of meat, with cilantro, onion, tomato, jalapeño and sour cream.",
-    image: loadedNachos,
-  },
-  {
-    category: "Most Ordered",
-    name: "Loaded Fries",
-    description:
-      "Waffle fries topped with your choice of meat and our in-house nacho cheese, loaded with cilantro, onion, tomato, jalapeño and sour cream.",
-    image: loadedFries,
-  },
-  {
-    category: "Most Ordered",
-    name: "Tortas",
-    description:
-      "Mexican torta bread filled with your choice of meat. Upcharge to make it loaded — cheese, beans, onion, tomato, cilantro, jalapeño and sour cream.",
-    image: tortas,
-  },
-  {
-    category: "Most Ordered",
-    name: "Grilled Cheese",
-    description: "Texas toast filled with American cheese and your choice of protein.",
-    image: grilledCheese,
-  },
+
+  // Taco order (4)
+  { category: "Most Ordered", name: "Queso Birria Taco Order (4)", description: "Slow-cooked beef and melted cheese in a corn tortilla, served with diced onions, cilantro, radishes, lime wedges, and a side of rich consomé.", price: "$15.25", image: tacoOrder },
+  { category: "Most Ordered", name: "Pastor Taco Order (4)", description: "Four tacos with choice of chicken or pork pastor. Option to include pineapple.", price: "$12.50", image: tacoOrder },
+  { category: "Most Ordered", name: "Tripitas Taco Order (4)", description: "Corn tortillas filled with tender beef tripe, garnished with onions, cilantro, and a squeeze of lime. Four tacos.", price: "$14.00", image: tacoOrder },
+  { category: "Most Ordered", name: "Carnitas Taco Order (4)", description: "Slow-cooked pork carnitas in corn tortillas, topped with onions, cilantro, and tomatillo salsa.", price: "$12.50", badge: "87% liked (8)", image: tacoOrder },
+  { category: "Most Ordered", name: "Carne Asada Taco Order (4)", description: "Grilled marinated steak tacos on corn tortillas, garnished with cilantro, onions, and lime.", price: "$13.75", image: tacoOrder },
+  { category: "Most Ordered", name: "Birria Taco Order (4) — No Cheese", description: "Shredded beef birria tacos garnished with onion and cilantro. Four corn tortillas.", price: "$13.75", image: tacoOrder },
+
+  // Taco Plate (3)
+  { category: "Most Ordered", name: "Pastor Taco Plate (3)", description: "Three tacos with spiced chicken or pork pastor. Option to add pineapple. Served with rice, beans, cilantro, onion, radish, lime and salsa.", price: "$13.50", badge: "87% liked (8)", image: tacoPlate },
+  { category: "Most Ordered", name: "Carnitas Taco Plate (3)", description: "Three carnitas tacos with a side of Mexican rice and refried beans topped with cheese. Served with lime wedges.", price: "$13.50", badge: "87% liked (8)", image: tacoPlate },
+  { category: "Most Ordered", name: "Tripita Taco Plate (3)", description: "Grilled tripas tacos with cilantro, onions and salsa on soft corn tortillas. Served with rice and beans.", price: "$13.50", image: tacoPlate },
+  { category: "Most Ordered", name: "Birria Taco Plate (3)", description: "Braised beef birria tacos with cilantro, onions, cheese and consomé dipping sauce. Served with rice and beans.", price: "$15.00", image: tacoPlate },
+  { category: "Most Ordered", name: "Asada Taco Plate (3)", description: "Grilled steak tacos on corn tortillas, topped with fresh cilantro and onion. Served with rice and beans.", price: "$14.50", image: tacoPlate },
+
+  // Mulitas (2)
+  { category: "Most Ordered", name: "Pastor Mulitas (2)", description: "Warm tortilla layers with chicken or pork pastor and melted cheese. Option to add pineapple. Two per order.", price: "$12.50", image: mulitas },
+  { category: "Most Ordered", name: "Carnitas Mulitas (2)", description: "Slow-cooked pork and melted cheese sandwiched between two corn tortillas, garnished with onions and cilantro.", price: "$12.50", image: mulitas },
+  { category: "Most Ordered", name: "Tripitas Mulitas (2)", description: "Grilled small corn tortillas with melted cheese and beef tripe, complemented by onions and cilantro.", price: "$13.50", image: mulitas },
+  { category: "Most Ordered", name: "Birria Mulitas (2)", description: "Tender birria layered with melted cheese between two crispy tortillas, with chopped onions and cilantro.", price: "$14.00", image: mulitas },
+  { category: "Most Ordered", name: "Asada Mulitas (2)", description: "Grilled beef between two handmade corn tortillas with melted cheese, onion, cilantro, guacamole and salsa ranchera.", price: "$13.50", image: mulitas },
+
+  // Quesadillas
+  { category: "Most Ordered", name: "Pastor Quesadilla", description: "12-inch flour tortilla with chicken or pork pastor and cheese, cut into 3. Option to add pineapple.", price: "$13.00", badge: "87% liked (8)", image: quesadillas },
+  { category: "Most Ordered", name: "Carnitas Quesadilla", description: "Slow-cooked pork and melted cheese in a flour tortilla with guacamole, sour cream and pico de gallo.", price: "$13.00", image: quesadillas },
+  { category: "Most Ordered", name: "Tripitas Quesadilla", description: "Grilled flour tortilla filled with jack cheese and beef tripas, with onions and cilantro.", price: "$14.00", image: quesadillas },
+  { category: "Most Ordered", name: "Asada Quesadilla", description: "Grilled tortilla filled with seasoned beef and melted cheese, with lime, diced onions and cilantro. Served with salsa and creamy sauce.", price: "$14.00", badge: "87% liked (8)", image: quesadillas },
+  { category: "Most Ordered", name: "Birria Quesadilla", description: "Tender birria-stuffed quesadilla with melted cheese, cilantro, onions, radish, lime and a side of rich consomé.", price: "$14.25", badge: "87% liked (8)", image: quesadillas },
+
+  // Burrito Supreme
+  { category: "Most Ordered", name: "Pastor Burrito Supreme", description: "Burrito filled with chicken or pork pastor, beans, rice, cheese, onion, tomato, cilantro, jalapeño and sour cream. Option to add pineapple.", price: "$12.50", image: burritoSupreme },
+  { category: "Most Ordered", name: "Carnitas Burrito Supreme", description: "Tender carnitas wrapped with rice, beans, cheese and fresh pico de gallo. Served with lime and salsa.", price: "$12.50", image: burritoSupreme },
+  { category: "Most Ordered", name: "Tripitas Burrito Supreme", description: "Burrito filled with seasoned tripitas, rice, beans, cheese and fresh vegetables. Served with lime and salsa.", price: "$13.00", image: burritoSupreme },
+  { category: "Most Ordered", name: "Birria Burrito Supreme", description: "Tender birria beef wrapped with rice, beans, cheese and fresh vegetables in a grilled tortilla. Served with lime and salsa.", price: "$13.00", image: burritoSupreme },
+  { category: "Most Ordered", name: "Asada Burrito Supreme", description: "Grilled tortilla filled with seasoned beef, rice, beans, cheese and fresh salsa. Served with lime and two salsas.", price: "$13.00", image: burritoSupreme },
+
+  // Loaded Nachos
+  { category: "Most Ordered", name: "Pastor Loaded Nachos", description: "Chicken or pork pastor nachos topped with nacho cheese, beans, jalapeños, cilantro, onion, tomato and sour cream. Option to add pineapple.", price: "$13.75", image: loadedNachos },
+  { category: "Most Ordered", name: "Carnitas Loaded Nachos", description: "Tostadas topped with roasted carnitas, melted cheese, beans, pico de gallo, guacamole, sour cream and jalapeños.", price: "$13.75", image: loadedNachos },
+  { category: "Most Ordered", name: "Tripitas Loaded Nachos", description: "Tripe over tostadas smothered in nacho cheese, with beans, jalapeños, pico de gallo, guacamole, sour cream and lettuce.", price: "$15.00", image: loadedNachos },
+  { category: "Most Ordered", name: "Birria Loaded Nachos", description: "Tostadas topped with slow-cooked birria, melted cheese, beans, pico de gallo, jalapeños, guacamole and sour cream.", price: "$15.00", image: loadedNachos },
+  { category: "Most Ordered", name: "Asada Loaded Nachos", description: "Grilled asada over crispy tostadas with beans, melted cheese and jalapeños, garnished with sour cream, pico de gallo and guacamole.", price: "$15.00", image: loadedNachos },
+
+  // Loaded Fries
+  { category: "Most Ordered", name: "Tripita Loaded Fries", description: "Waffle fries topped with tripita, nacho cheese, guacamole, sour cream and fresh pico de gallo.", price: "$14.00", image: loadedFries },
+  { category: "Most Ordered", name: "Carnitas Loaded Fries", description: "Waffle fries topped with tender carnitas, nacho cheese, jalapeños, diced onions, cilantro, guacamole and sour cream.", price: "$13.50", image: loadedFries },
+  { category: "Most Ordered", name: "Pastor Loaded Fries", description: "Waffle fries topped with chicken or pork pastor, nacho cheese, onion, tomato, cilantro, jalapeño and sour cream. Optional pineapple.", price: "$13.50", image: loadedFries },
+  { category: "Most Ordered", name: "Asada Loaded Fries", description: "Waffle fries topped with carne asada, melted cheese, guacamole, pico de gallo and sour cream.", price: "$14.00", image: loadedFries },
+  { category: "Most Ordered", name: "Birria Loaded Fries", description: "Waffle fries topped with birria beef, cheese, guacamole, sour cream, onions and cilantro.", price: "$14.25", image: loadedFries },
+
+  // Tortas
+  { category: "Most Ordered", name: "Pastor Torta", description: "Torta bread with chicken or pork pastor and classic Mexican fillings. Optional pineapple.", price: "$12.50", image: tortas },
+  { category: "Most Ordered", name: "Carnitas Torta", description: "Braised pork on Mexican bread with refried beans, lettuce, tomato, onion, avocado and mayo.", price: "$12.50", image: tortas },
+  { category: "Most Ordered", name: "Tripitas Torta", description: "Beef tripe torta with refried beans, lettuce, tomato, avocado, cheese and mayo on fresh Mexican bread.", price: "$13.25", image: tortas },
+  { category: "Most Ordered", name: "Birria Torta", description: "Shredded beef birria, refried beans, melted cheese, lettuce, tomato, onion and jalapeños on toasted telera with a hint of mayo.", price: "$13.75", image: tortas },
+  { category: "Most Ordered", name: "Asada Torta", description: "Grilled steak, refried beans, lettuce, tomato, avocado, onions and mayo on traditional Mexican bread.", price: "$13.25", image: tortas },
+
+  // Grilled Cheese
+  { category: "Most Ordered", name: "Pastor Grilled Cheese", description: "Grilled Texas toast with American cheese and marinated chicken or pork pastor.", price: "$11.25", image: grilledCheese },
+  { category: "Most Ordered", name: "Carnitas Grilled Cheese", description: "Slow-roasted shredded pork and melted cheese on grilled Texas toast.", price: "$11.25", image: grilledCheese },
+  { category: "Most Ordered", name: "Tripitas Grilled Cheese", description: "Grilled Texas toast with crispy tripe and melted American cheese — a Mexican twist on a classic.", price: "$12.25", image: grilledCheese },
+  { category: "Most Ordered", name: "Birria Grilled Cheese", description: "Birria and melted cheese on toasted Texas toast, garnished with onion and cilantro. Served with a side of consomé.", price: "$13.75", image: grilledCheese },
+  { category: "Most Ordered", name: "Asada Grilled Cheese", description: "Grilled beef, melted American cheese, onions and cilantro on toasted Texas toast.", price: "$12.25", image: grilledCheese },
+
   {
     category: "Most Ordered",
     name: "Birria Ramen",
