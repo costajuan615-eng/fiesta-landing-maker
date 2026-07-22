@@ -24,6 +24,9 @@ import aguaStrawberry from "@/assets/menu/agua-strawberry.jpg";
 import aguaPistachio from "@/assets/menu/agua-pistachio.jpg";
 import aguaJamaica from "@/assets/menu/agua-jamaica.jpg";
 import kidsMeal from "@/assets/menu/kids-meal.jpg";
+import kidsQuesadilla from "@/assets/menu/kids-quesadilla.jpg";
+import kidsNuggets from "@/assets/menu/kids-nuggets.jpg";
+import kidsTacoPlate from "@/assets/menu/kids-taco-plate.jpg";
 
 export type MenuItem = {
   name: string;
@@ -177,7 +180,27 @@ export const menu: MenuItem[] = [
 
 
   // Kids Meal
-  { category: "Kids Meal", name: "Kids Meal", description: "Kid-sized portions of the classics.", image: kidsMeal },
+  {
+    category: "Kids Meal",
+    name: "Kids Quesadilla",
+    description: "Cheese filled quesadilla served with rice and beans on the side.",
+    price: "$8.00",
+    image: kidsQuesadilla,
+  },
+  {
+    category: "Kids Meal",
+    name: "Bomba Nuggets",
+    description: "6 crispy nuggets served with a side of waffle fries. Ketchup on the side.",
+    price: "$8.00",
+    image: kidsNuggets,
+  },
+  {
+    category: "Kids Meal",
+    name: "Kids Taco Plate",
+    description: "2 Bomba tacos with Birria served with beans and rice on the side.",
+    price: "$8.00",
+    image: kidsTacoPlate,
+  },
 ];
 
 export type Review = {
