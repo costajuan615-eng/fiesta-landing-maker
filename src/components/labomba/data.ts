@@ -24,6 +24,9 @@ import aguaStrawberry from "@/assets/menu/agua-strawberry.jpg";
 import aguaPistachio from "@/assets/menu/agua-pistachio.jpg";
 import aguaJamaica from "@/assets/menu/agua-jamaica.jpg";
 import kidsMeal from "@/assets/menu/kids-meal.jpg";
+import kidsQuesadilla from "@/assets/menu/kids-quesadilla.jpg";
+import kidsNuggets from "@/assets/menu/kids-nuggets.jpg";
+import kidsTacoPlate from "@/assets/menu/kids-taco-plate.jpg";
 
 export type MenuItem = {
   name: string;
