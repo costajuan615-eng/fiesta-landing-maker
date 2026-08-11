@@ -4,11 +4,12 @@ import { menu, MENU_CATEGORIES, type MenuCategory, type MenuItem } from "./data"
 import ItemCustomizer from "./ItemCustomizer";
 
 
-type Tab = "All" | MenuCategory;
-const TABS: Tab[] = ["All", ...MENU_CATEGORIES];
+type Tab = MenuCategory;
+const TABS: Tab[] = [...MENU_CATEGORIES];
 
 export default function Menu() {
-  const [tab, setTab] = useState<Tab>("All");
+  const [tab, setTab] = useState<Tab>(TABS[0]);
+
   const [query, setQuery] = useState("");
   const [customizing, setCustomizing] = useState<MenuItem | null>(null);
 
@@ -16,7 +17,7 @@ export default function Menu() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return menu.filter((item) => {
-      if (tab !== "All" && item.category !== tab) return false;
+      if (item.category !== tab) return false;
       if (!q) return true;
       return (
         item.name.toLowerCase().includes(q) ||
@@ -25,6 +26,7 @@ export default function Menu() {
       );
     });
   }, [tab, query]);
+
 
   return (
     <section id="menu" className="mx-auto max-w-6xl px-6 py-16">
@@ -63,8 +65,8 @@ export default function Menu() {
       <div className="mb-8 flex flex-wrap items-center justify-center gap-2">
         {TABS.map((t) => {
           const active = tab === t;
-          const count =
-            t === "All" ? menu.length : menu.filter((i) => i.category === t).length;
+          const count = menu.filter((i) => i.category === t).length;
+
           return (
             <button
               key={t}
