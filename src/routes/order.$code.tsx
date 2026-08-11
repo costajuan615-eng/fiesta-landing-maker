@@ -122,6 +122,23 @@ function OrderConfirmationPage() {
             />
           </dl>
         )}
+
+        {items && items.length > 0 && (
+          <ul className="mt-4 space-y-2 border-t border-border/60 pt-4 text-sm">
+            {items.map((it) => (
+              <li key={it.id} className="flex justify-between gap-3">
+                <span className="text-muted-foreground">
+                  {it.quantity}× {it.name}
+                </span>
+                <span className="font-semibold text-foreground">
+                  {it.unit_price_cents != null
+                    ? formatCents(it.unit_price_cents * it.quantity)
+                    : "—"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="mt-8 flex flex-col items-center gap-3">
