@@ -71,7 +71,8 @@ function CheckoutPage() {
     e.preventDefault();
     setFormError(null);
     setErrors({});
-    const form = new FormData(e.currentTarget);
+    let form: FormData;
+    try { form = new FormData(e.currentTarget); console.log("FD_OK"); } catch (err) { console.log("FD_ERR", String(err)); return; }
     const parsed = checkoutSchema.safeParse({
       customer_name: form.get("customer_name"),
       phone: form.get("phone"),
