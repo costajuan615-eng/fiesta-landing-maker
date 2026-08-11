@@ -124,7 +124,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      current_order_token: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never

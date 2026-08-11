@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Flame, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
 import { formatCents, useOrder } from "@/lib/order-context";
 import { BUSINESS } from "@/components/labomba/data";
 
@@ -71,13 +71,14 @@ function CheckoutPage() {
     setFormError(null);
     setErrors({});
     const form = new FormData(e.currentTarget);
+    const field = (name: string) => String(form.get(name) ?? "");
     const parsed = checkoutSchema.safeParse({
-      customer_name: form.get("customer_name"),
-      phone: form.get("phone"),
-      email: form.get("email"),
-      order_type: form.get("order_type"),
-      delivery_address: form.get("delivery_address"),
-      notes: form.get("notes"),
+      customer_name: field("customer_name"),
+      phone: field("phone"),
+      email: field("email"),
+      order_type: field("order_type"),
+      delivery_address: field("delivery_address"),
+      notes: field("notes"),
     });
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
@@ -95,10 +96,13 @@ function CheckoutPage() {
     setSubmitting(true);
     try {
       const order_code = generateOrderCode();
+      const secret_token = crypto.randomUUID();
+      const supabase = createOrderClient(secret_token);
       const { data: order, error: orderErr } = await supabase
         .from("orders")
         .insert({
           order_code,
+          secret_token,
           customer_name: parsed.data.customer_name,
           phone: parsed.data.phone,
           email: parsed.data.email || null,
@@ -149,6 +153,7 @@ function CheckoutPage() {
 
       // Stash confirmation details for the confirmation page.
       try {
+        sessionStorage.setItem(orderTokenKey(order.order_code), order.secret_token);
         sessionStorage.setItem(
           `labomba.order.${order.order_code}`,
           JSON.stringify({
