@@ -81,7 +81,7 @@ function CheckoutPage() {
       delivery_address: form.get("delivery_address"),
       notes: form.get("notes"),
     });
-    console.log("PARSED", parsed.success, lines.length);
+    console.log("PARSED", parsed.success, lines.length, JSON.stringify(parsed.success ? {} : parsed.error.issues));
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
       for (const issue of parsed.error.issues) {
