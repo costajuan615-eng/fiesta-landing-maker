@@ -1,15 +1,16 @@
-Remove the "All" tab from the Menu filter
+# Remove the "All" tab from the menu
 
-What
-- Remove the "All" category tab from the searchable menu tab bar, keeping every other category tab (Tacos, Taco Plates, Mulitas, Quesadillas, Burritos, Loaded Nachos, Loaded Fries, Tortas, Grilled Cheese, Ramen, Extras & Sides, Dessert, Agua Fresca, Kids Meal).
-- Default the menu view to the first category (Tacos) instead of showing all items at once.
-- Preserve search behavior within the selected category.
+## Goal
+Remove the catch-all **All** tab from the menu category tabs while keeping every other category tab intact.
 
-How
-1. Update `src/components/labomba/Menu.tsx`:
-   - Remove `"All"` from the `Tab` type and `TABS` array.
-   - Initialize the active tab to `MENU_CATEGORIES[0]` ("Tacos").
-   - Remove the `tab !== "All"` branch in the filter logic so the selected category always applies.
-   - Remove the `t === "All"` count special case so each tab only shows its own item count.
+## Plan
+1. In `src/components/labomba/Menu.tsx`:
+   - Remove the `Tab` union type and the `TABS` array that prepends `"All"`.
+   - Use `MENU_CATEGORIES` directly as the tab list.
+   - Change the default `useState` from `"All"` to the first category (`MENU_CATEGORIES[0]`, which is `"Tacos"`).
+   - Update the filter logic so it always compares `item.category === tab` instead of checking for `"All"` first.
+   - Update the per-tab count logic to remove the special case for `"All"`.
 
-No other files need to change. `src/components/labomba/data.ts` and `src/components/labomba/ItemCustomizer.tsx` remain untouched.
+2. Keep the search bar, menu cards, add-to-order flow, and category data unchanged.
+
+3. Verify the menu still renders and tabs switch correctly after the change.
