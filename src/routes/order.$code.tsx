@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Phone, MapPin, Flame } from "lucide-react";
 import { BUSINESS } from "@/components/labomba/data";
 import { formatCents } from "@/lib/order-context";
+import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
 
 export const Route = createFileRoute("/order/$code")({
   head: ({ params }) => ({
@@ -28,9 +29,12 @@ type OrderSnapshot = {
   submitted_at: string;
 };
 
+type OrderLine = { id: string; name: string; quantity: number; unit_price_cents: number | null };
+
 function OrderConfirmationPage() {
   const { code } = Route.useParams();
   const [snap, setSnap] = useState<OrderSnapshot | null>(null);
+  const [items, setItems] = useState<OrderLine[] | null>(null);
 
   useEffect(() => {
     try {
@@ -39,7 +43,49 @@ function OrderConfirmationPage() {
     } catch {
       /* ignore */
     }
+
+    let cancelled = false;
+    (async () => {
+      let token: string | null = null;
+      try {
+        token = sessionStorage.getItem(orderTokenKey(code));
+      } catch {
+        /* ignore */
+      }
+      if (!token) return;
+
+      const client = createOrderClient(token);
+      const { data: order } = await client
+        .from("orders")
+        .select("order_code, customer_name, order_type, phone, subtotal_cents, item_count, created_at")
+        .eq("order_code", code)
+        .maybeSingle();
+      if (cancelled || !order) return;
+
+      const { data: rows } = await client
+        .from("order_items")
+        .select("id, name, quantity, unit_price_cents")
+        .order("created_at", { ascending: true });
+      if (cancelled) return;
+
+      setItems((rows as OrderLine[] | null) ?? []);
+      setSnap({
+        order_code: order.order_code,
+        customer_name: order.customer_name,
+        order_type: order.order_type === "delivery" ? "delivery" : "pickup",
+        phone: order.phone,
+        subtotal_cents: order.subtotal_cents,
+        item_count: order.item_count,
+        has_unpriced: (rows ?? []).some((r) => r.unit_price_cents == null),
+        submitted_at: order.created_at,
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [code]);
+
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 text-center">
