@@ -97,9 +97,7 @@ function CheckoutPage() {
     try {
       const order_code = generateOrderCode();
       const secret_token = crypto.randomUUID();
-      console.log("CLIENT_START");
       const supabase = createOrderClient(secret_token);
-      console.log("CLIENT_OK");
       const { data: order, error: orderErr } = await supabase
         .from("orders")
         .insert({
@@ -119,7 +117,6 @@ function CheckoutPage() {
         })
         .select("id, order_code, secret_token")
         .single();
-      console.log("INSERT_DONE", JSON.stringify(orderErr), JSON.stringify(order));
       if (orderErr || !order) throw orderErr ?? new Error("Failed to submit order");
 
       // Insert main lines, then addOns with parent_item_id
