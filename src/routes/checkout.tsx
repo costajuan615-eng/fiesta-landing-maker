@@ -67,21 +67,19 @@ function CheckoutPage() {
   const [formError, setFormError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    console.log("SUBMIT_FIRED2");
     e.preventDefault();
     setFormError(null);
     setErrors({});
-    let form: FormData;
-    try { form = new FormData(e.currentTarget); console.log("FD_OK"); } catch (err) { console.log("FD_ERR", String(err)); return; }
+    const form = new FormData(e.currentTarget);
+    const field = (name: string) => String(form.get(name) ?? "");
     const parsed = checkoutSchema.safeParse({
-      customer_name: form.get("customer_name"),
-      phone: form.get("phone"),
-      email: form.get("email"),
-      order_type: form.get("order_type"),
-      delivery_address: form.get("delivery_address"),
-      notes: form.get("notes"),
+      customer_name: field("customer_name"),
+      phone: field("phone"),
+      email: field("email"),
+      order_type: field("order_type"),
+      delivery_address: field("delivery_address"),
+      notes: field("notes"),
     });
-    console.log("PARSED", parsed.success, lines.length, JSON.stringify(parsed.success ? {} : parsed.error.issues));
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
       for (const issue of parsed.error.issues) {
