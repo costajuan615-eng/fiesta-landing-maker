@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Flame, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
 import { formatCents, useOrder } from "@/lib/order-context";
 import { BUSINESS } from "@/components/labomba/data";
 
