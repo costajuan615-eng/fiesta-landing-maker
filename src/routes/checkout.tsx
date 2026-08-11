@@ -95,10 +95,13 @@ function CheckoutPage() {
     setSubmitting(true);
     try {
       const order_code = generateOrderCode();
+      const secret_token = crypto.randomUUID();
+      const supabase = createOrderClient(secret_token);
       const { data: order, error: orderErr } = await supabase
         .from("orders")
         .insert({
           order_code,
+          secret_token,
           customer_name: parsed.data.customer_name,
           phone: parsed.data.phone,
           email: parsed.data.email || null,
@@ -149,6 +152,7 @@ function CheckoutPage() {
 
       // Stash confirmation details for the confirmation page.
       try {
+        sessionStorage.setItem(orderTokenKey(order.order_code), order.secret_token);
         sessionStorage.setItem(
           `labomba.order.${order.order_code}`,
           JSON.stringify({
