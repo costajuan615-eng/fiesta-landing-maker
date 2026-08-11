@@ -67,7 +67,7 @@ function CheckoutPage() {
   const [formError, setFormError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    console.log("SUBMIT_FIRED");
+    console.log("SUBMIT_FIRED2");
     e.preventDefault();
     setFormError(null);
     setErrors({});
