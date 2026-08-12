@@ -1,10 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Flame, Loader2 } from "lucide-react";
-import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
+import { orderTokenKey } from "@/lib/order-token-client";
+import { submitOrder } from "@/lib/orders.functions";
 import { formatCents, useOrder } from "@/lib/order-context";
 import { BUSINESS } from "@/components/labomba/data";
+
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -51,15 +54,9 @@ const checkoutSchema = z
     { message: "Delivery address is required", path: ["delivery_address"] },
   );
 
-function generateOrderCode() {
-  const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-  let s = "";
-  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
-  return `LB-${s}`;
-}
-
 function CheckoutPage() {
   const navigate = useNavigate();
+  const submit = useServerFn(submitOrder);
   const { lines, subtotalCents, itemCount, hasUnpricedItems, clear } = useOrder();
   const [orderType, setOrderType] = useState<"pickup" | "delivery">("pickup");
   const [submitting, setSubmitting] = useState(false);
@@ -95,61 +92,18 @@ function CheckoutPage() {
 
     setSubmitting(true);
     try {
-      const order_code = generateOrderCode();
-      const secret_token = crypto.randomUUID();
-      const supabase = createOrderClient(secret_token);
-      const { data: order, error: orderErr } = await supabase
-        .from("orders")
-        .insert({
-          order_code,
-          secret_token,
-          customer_name: parsed.data.customer_name,
-          phone: parsed.data.phone,
-          email: parsed.data.email || null,
-          order_type: parsed.data.order_type,
-          delivery_address:
-            parsed.data.order_type === "delivery"
-              ? parsed.data.delivery_address || null
-              : null,
-          notes: parsed.data.notes || null,
-          subtotal_cents: subtotalCents,
-          item_count: itemCount,
-        })
-        .select("id, order_code, secret_token")
-        .single();
-      if (orderErr || !order) throw orderErr ?? new Error("Failed to submit order");
-
-      // Insert main lines, then addOns with parent_item_id
-      for (const l of lines) {
-        const { data: parent, error: itemErr } = await supabase
-          .from("order_items")
-          .insert({
-            order_id: order.id,
-            menu_item_id: l.itemId,
-            name: l.name,
-            category: l.category,
+      // Prices and totals are recomputed server-side from the real menu.
+      const order = await submit({
+        data: {
+          ...parsed.data,
+          lines: lines.map((l) => ({
+            itemId: l.itemId,
             quantity: l.quantity,
-            unit_price_cents: l.unitPriceCents,
-            note: l.note ?? null,
-          })
-          .select("id")
-          .single();
-        if (itemErr || !parent) throw itemErr ?? new Error("Failed to save item");
-
-        if (l.addOns.length > 0) {
-          const addonRows = l.addOns.map((a) => ({
-            order_id: order.id,
-            parent_item_id: parent.id,
-            menu_item_id: a.id,
-            name: a.name,
-            category: a.category,
-            quantity: a.quantity,
-            unit_price_cents: a.unitPriceCents,
-          }));
-          const { error: addErr } = await supabase.from("order_items").insert(addonRows);
-          if (addErr) throw addErr;
-        }
-      }
+            note: l.note,
+            addOns: l.addOns.map((a) => ({ id: a.id, quantity: a.quantity })),
+          })),
+        },
+      });
 
       // Stash confirmation details for the confirmation page.
       try {
@@ -173,6 +127,7 @@ function CheckoutPage() {
 
       clear();
       navigate({ to: "/order/$code", params: { code: order.order_code } });
+
     } catch (err) {
       console.error(err);
       setFormError("We couldn't submit your order. Please try again or call us.");
