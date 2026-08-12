@@ -1,10 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Flame, Loader2 } from "lucide-react";
-import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
+import { orderTokenKey } from "@/lib/order-token-client";
+import { submitOrder } from "@/lib/orders.functions";
 import { formatCents, useOrder } from "@/lib/order-context";
 import { BUSINESS } from "@/components/labomba/data";
+
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
