@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { CheckCircle2, Phone, MapPin, Flame } from "lucide-react";
 import { BUSINESS } from "@/components/labomba/data";
 import { formatCents } from "@/lib/order-context";
-import { createOrderClient, orderTokenKey } from "@/lib/order-token-client";
+import { orderPassKey } from "@/lib/order-pass";
+import { getOrder } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/order/$code")({
   head: ({ params }) => ({
@@ -33,8 +35,10 @@ type OrderLine = { id: string; name: string; quantity: number; unit_price_cents:
 
 function OrderConfirmationPage() {
   const { code } = Route.useParams();
+  const fetchOrder = useServerFn(getOrder);
   const [snap, setSnap] = useState<OrderSnapshot | null>(null);
   const [items, setItems] = useState<OrderLine[] | null>(null);
+  const [expired, setExpired] = useState(false);
 
   useEffect(() => {
     try {
@@ -46,45 +50,53 @@ function OrderConfirmationPage() {
 
     let cancelled = false;
     (async () => {
-      let token: string | null = null;
+      let pass: string | null = null;
       try {
-        token = sessionStorage.getItem(orderTokenKey(code));
+        pass = sessionStorage.getItem(orderPassKey(code));
       } catch {
         /* ignore */
       }
-      if (!token) return;
+      if (!pass) return;
 
-      const client = createOrderClient(token);
-      const { data: order } = await client
-        .from("orders")
-        .select("order_code, customer_name, order_type, phone, subtotal_cents, item_count, created_at")
-        .eq("order_code", code)
-        .maybeSingle();
-      if (cancelled || !order) return;
-
-      const { data: rows } = await client
-        .from("order_items")
-        .select("id, name, quantity, unit_price_cents")
-        .order("created_at", { ascending: true });
+      const result = await fetchOrder({ data: { order_code: code, access_pass: pass } });
       if (cancelled) return;
 
-      setItems((rows as OrderLine[] | null) ?? []);
+      if (!result.ok) {
+        try {
+          sessionStorage.removeItem(orderPassKey(code));
+        } catch {
+          /* ignore */
+        }
+        setExpired(true);
+        return;
+      }
+
+      // Sliding window: refresh the short-lived pass on every successful read.
+      try {
+        sessionStorage.setItem(orderPassKey(code), result.access_pass);
+      } catch {
+        /* ignore */
+      }
+
+      const rows = result.items as OrderLine[];
+      setItems(rows);
       setSnap({
-        order_code: order.order_code,
-        customer_name: order.customer_name,
-        order_type: order.order_type === "delivery" ? "delivery" : "pickup",
-        phone: order.phone,
-        subtotal_cents: order.subtotal_cents,
-        item_count: order.item_count,
-        has_unpriced: (rows ?? []).some((r) => r.unit_price_cents == null),
-        submitted_at: order.created_at,
+        order_code: result.order.order_code,
+        customer_name: result.order.customer_name,
+        order_type: result.order.order_type === "delivery" ? "delivery" : "pickup",
+        phone: result.order.phone,
+        subtotal_cents: result.order.subtotal_cents,
+        item_count: result.order.item_count,
+        has_unpriced: rows.some((r) => r.unit_price_cents == null),
+        submitted_at: result.order.created_at,
       });
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [code]);
+  }, [code, fetchOrder]);
+
 
 
   return (
