@@ -120,6 +120,15 @@ function OrderConfirmationPage() {
         </div>
         <div className="mt-1 text-3xl font-normal tracking-wide text-foreground">{code}</div>
 
+        {expired && (
+          <p className="mt-4 border-t border-border/60 pt-4 text-sm text-muted-foreground">
+            This order link has expired for your security. Give us a call with the code above and
+            we'll pull up your order.
+          </p>
+        )}
+
+
+
         {snap && (
           <dl className="mt-4 space-y-2 border-t border-border/60 pt-4 text-sm">
             <Row label="Type" value={snap.order_type === "delivery" ? "Delivery" : "Pickup"} />
