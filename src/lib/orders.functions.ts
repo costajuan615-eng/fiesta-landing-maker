@@ -3,6 +3,7 @@ import { z } from "zod";
 import { menu } from "@/components/labomba/data";
 import { getMenuItemId, priceToCents } from "@/lib/order-context";
 
+
 const addOnSchema = z.object({
   id: z.string().min(1).max(200),
   quantity: z.number().int().min(1).max(50),
@@ -146,5 +147,55 @@ export const submitOrder = createServerFn({ method: "POST" })
       }
     }
 
-    return { order_code: order.order_code, secret_token: order.secret_token };
+    const { issueOrderPass } = await import("@/lib/order-access.server");
+    return { order_code: order.order_code, access_pass: await issueOrderPass(order.order_code) };
   });
+
+const getOrderSchema = z.object({
+  order_code: z.string().trim().min(3).max(40),
+  access_pass: z.string().min(10).max(500),
+});
+
+export const getOrder = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => getOrderSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { verifyOrderPass, issueOrderPass } = await import("@/lib/order-access.server");
+    if (!(await verifyOrderPass(data.order_code, data.access_pass))) {
+      return { ok: false as const, reason: "expired" as const };
+    }
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: order, error } = await supabaseAdmin
+      .from("orders")
+      .select(
+        "id, order_code, customer_name, order_type, phone, subtotal_cents, item_count, created_at",
+      )
+      .eq("order_code", data.order_code)
+      .maybeSingle();
+    if (error) throw error;
+    if (!order) return { ok: false as const, reason: "not_found" as const };
+
+    const { data: items, error: itemsErr } = await supabaseAdmin
+      .from("order_items")
+      .select("id, name, quantity, unit_price_cents")
+      .eq("order_id", order.id)
+      .order("created_at", { ascending: true });
+    if (itemsErr) throw itemsErr;
+
+    return {
+      ok: true as const,
+      access_pass: await issueOrderPass(order.order_code),
+      order: {
+        order_code: order.order_code,
+        customer_name: order.customer_name,
+        order_type: order.order_type,
+        phone: order.phone,
+        subtotal_cents: order.subtotal_cents,
+        item_count: order.item_count,
+        created_at: order.created_at,
+      },
+      items: items ?? [],
+    };
+  });
+

@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Flame, Loader2 } from "lucide-react";
-import { orderTokenKey } from "@/lib/order-token-client";
+import { orderPassKey } from "@/lib/order-pass";
 import { submitOrder } from "@/lib/orders.functions";
 import { formatCents, useOrder } from "@/lib/order-context";
 import { BUSINESS } from "@/components/labomba/data";
@@ -107,7 +107,7 @@ function CheckoutPage() {
 
       // Stash confirmation details for the confirmation page.
       try {
-        sessionStorage.setItem(orderTokenKey(order.order_code), order.secret_token);
+        sessionStorage.setItem(orderPassKey(order.order_code), order.access_pass);
         sessionStorage.setItem(
           `labomba.order.${order.order_code}`,
           JSON.stringify({
