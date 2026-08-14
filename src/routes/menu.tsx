@@ -27,6 +27,9 @@ const gallery = [
   { src: img10.url, alt: "La Bomba menu highlights collage" },
 ];
 
+const SITE_URL = "https://fiesta-landing-maker.lovable.app";
+const MENU_OG_IMAGE = `${SITE_URL}${img6.url}`;
+
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
@@ -36,16 +39,34 @@ export const Route = createFileRoute("/menu")({
         content:
           "Browse the full La Bomba menu — birria quesatacos, ramen, burritos, loaded fries, tortas, aguas frescas and more. See real photos of our food in El Paso, TX.",
       },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Full Menu & Gallery — La Bomba LLC" },
       {
         property: "og:description",
         content:
           "Real photos + the full menu of birria, asada, pastor and carnitas from La Bomba in El Paso, TX.",
       },
-      { property: "og:image", content: img6.url },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_URL}/menu` },
+      { property: "og:image", content: MENU_OG_IMAGE },
+      { name: "twitter:image", content: MENU_OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: "/menu" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/menu` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+            { "@type": "ListItem", position: 2, name: "Full Menu & Gallery", item: `${SITE_URL}/menu` },
+          ],
+        }),
+      },
+    ],
   }),
+
   component: MenuPage,
 });
 
