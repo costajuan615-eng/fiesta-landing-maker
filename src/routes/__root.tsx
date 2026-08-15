@@ -86,6 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Bomb birria, asada, pastor & carnitas in El Paso, TX. Former food truck, now brick and mortar.",
       },
+      {
+        name: "google-site-verification",
+        content: "khK7f9nqOTcvGYVhjaWHbS8zFBBvt4CAwO84fEsSWMw",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:site_name", content: "La Bomba LLC" },
       { property: "og:type", content: "website" },
