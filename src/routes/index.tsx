@@ -3,7 +3,7 @@ import LaBomba from "@/components/labomba/LaBomba";
 import { BUSINESS } from "@/components/labomba/data";
 import ogImage from "@/assets/gallery/6.jpg.asset.json";
 
-const SITE_URL = "https://fiesta-landing-maker.lovable.app";
+const SITE_URL = "https://labombaeats.lovable.app";
 const OG_IMAGE = `${SITE_URL}${ogImage.url}`;
 
 export const Route = createFileRoute("/")({
