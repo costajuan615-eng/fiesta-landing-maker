@@ -3,4 +3,4 @@ Allow: /
 Disallow: /checkout
 Disallow: /order/
 
-Sitemap: https://fiesta-landing-maker.lovable.app/sitemap.xml
+Sitemap: https://labombaeats.lovable.app/sitemap.xml

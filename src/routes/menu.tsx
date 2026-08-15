@@ -27,7 +27,7 @@ const gallery = [
   { src: img10.url, alt: "La Bomba menu highlights collage" },
 ];
 
-const SITE_URL = "https://fiesta-landing-maker.lovable.app";
+const SITE_URL = "https://labombaeats.lovable.app";
 const MENU_OG_IMAGE = `${SITE_URL}${img6.url}`;
 
 export const Route = createFileRoute("/menu")({
